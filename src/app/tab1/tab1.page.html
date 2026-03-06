@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      My Location
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,25 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">My Location</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <!-- Loading spinner -->
+  <div *ngIf="loading" class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Getting your location...</p>
+  </div>
+
+  <!-- Error message -->
+  <div *ngIf="error && !loading" class="error-container">
+    <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
+    <p>{{ error }}</p>
+    <ion-button (click)="initMap()" fill="outline">
+      Try Again
+    </ion-button>
+  </div>
+
+  <!-- Map container -->
+  <div id="map" [class.hidden]="loading || error"></div>
 </ion-content>
