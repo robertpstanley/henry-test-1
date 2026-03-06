@@ -1,0 +1,8 @@
+{
+  "name": "Henry Test 1",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "aee0d09d"
+}
