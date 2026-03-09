@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Video Recorder
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,34 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">Video Recorder</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <div class="video-container">
+    <div class="video-preview" *ngIf="videoUrl">
+      <video [src]="videoUrl" controls playsinline></video>
+    </div>
+
+    <div class="placeholder" *ngIf="!videoUrl">
+      <ion-icon name="videocam-outline" class="large-icon"></ion-icon>
+      <p>No video recorded yet</p>
+    </div>
+
+    <div class="button-container">
+      <ion-button expand="block" (click)="recordVideo()" [disabled]="isRecording">
+        <ion-icon slot="start" name="videocam"></ion-icon>
+        Record Video
+      </ion-button>
+
+      <ion-button expand="block" color="danger" (click)="clearVideo()" *ngIf="videoUrl">
+        <ion-icon slot="start" name="trash"></ion-icon>
+        Clear Video
+      </ion-button>
+    </div>
+
+    <ion-text color="medium" class="info-text">
+      <p>Tap "Record Video" to start recording yourself</p>
+    </ion-text>
+  </div>
 </ion-content>
