@@ -1,46 +1,116 @@
-#map {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 20px;
+}
 
-  &.hidden {
-    display: none;
+.login-form,
+.token-display {
+  width: 100%;
+  max-width: 500px;
+}
+
+ion-card {
+  margin: 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+ion-card-header {
+  padding-bottom: 0;
+}
+
+ion-card-title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+ion-card-subtitle {
+  margin-top: 8px;
+  color: var(--ion-color-medium);
+}
+
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin-bottom: 16px;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  margin: 16px 0;
+  background-color: var(--ion-color-danger-tint);
+  border-radius: 8px;
+  
+  ion-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  
+  p {
+    margin: 0;
+    color: var(--ion-color-danger-shade);
+    font-size: 14px;
   }
 }
 
-.loading-container,
-.error-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 20px;
-  text-align: center;
+.login-button,
+.logout-button {
+  margin-top: 24px;
+  height: 48px;
+  font-weight: 600;
+}
 
-  ion-spinner {
+.token-display {
+  .token-info {
     margin-bottom: 16px;
   }
-
-  ion-icon {
-    font-size: 64px;
-    margin-bottom: 16px;
-  }
-
-  p {
-    margin: 0 0 16px 0;
-    color: var(--ion-color-medium);
+  
+  .token-item {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--ion-color-light);
+    
+    &:last-of-type {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    
+    strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ion-color-medium);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    p {
+      margin: 0;
+      color: var(--ion-color-dark);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    .token-value {
+      word-break: break-all;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      background-color: var(--ion-color-light);
+      padding: 8px;
+      border-radius: 4px;
+      max-height: 150px;
+      overflow-y: auto;
+    }
   }
 }
 
 ion-content {
-  --padding-top: 0;
-  --padding-bottom: 0;
-  --padding-start: 0;
-  --padding-end: 0;
+  --background: var(--ion-color-light);
 }
 
 // Made with Bob

@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      My Location
+      AWS Cognito Login
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,25 +9,105 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">My Location</ion-title>
+      <ion-title size="large">AWS Cognito Login</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <!-- Loading spinner -->
-  <div *ngIf="loading" class="loading-container">
-    <ion-spinner name="crescent"></ion-spinner>
-    <p>Getting your location...</p>
-  </div>
+  <div class="auth-container">
+    <!-- Login Form (when not logged in) -->
+    <div *ngIf="!isLoggedIn" class="login-form">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Sign In</ion-card-title>
+          <ion-card-subtitle>Enter your AWS Cognito credentials</ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content>
+          <ion-item>
+            <ion-input
+              label="Username"
+              labelPlacement="floating"
+              type="text"
+              [(ngModel)]="username"
+              [disabled]="loading"
+              placeholder="Enter username"
+            ></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-input
+              label="Password"
+              labelPlacement="floating"
+              type="password"
+              [(ngModel)]="password"
+              [disabled]="loading"
+              placeholder="Enter password"
+              (keyup.enter)="login()"
+            ></ion-input>
+          </ion-item>
 
-  <!-- Error message -->
-  <div *ngIf="error && !loading" class="error-container">
-    <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
-    <p>{{ error }}</p>
-    <ion-button (click)="initMap()" fill="outline">
-      Try Again
-    </ion-button>
-  </div>
+          <!-- Error message -->
+          <div *ngIf="error" class="error-message">
+            <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
+            <p>{{ error }}</p>
+          </div>
 
-  <!-- Map container -->
-  <div id="map" [class.hidden]="loading || error"></div>
+          <ion-button
+            expand="block"
+            (click)="login()"
+            [disabled]="loading || !username || !password"
+            class="login-button"
+          >
+            <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+            <span *ngIf="!loading">Login</span>
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Token Details (when logged in) -->
+    <div *ngIf="isLoggedIn" class="token-display">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Authentication Successful</ion-card-title>
+          <ion-card-subtitle>Token Details</ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content>
+          <div class="token-info" *ngIf="tokenDetails">
+            <div class="token-item">
+              <strong>Username:</strong>
+              <p>{{ tokenDetails.username }}</p>
+            </div>
+            
+            <div class="token-item">
+              <strong>User ID:</strong>
+              <p class="token-value">{{ tokenDetails.userId }}</p>
+            </div>
+            
+            <div class="token-item">
+              <strong>ID Token:</strong>
+              <p class="token-value">{{ tokenDetails.idToken }}</p>
+            </div>
+            
+            <div class="token-item">
+              <strong>Access Token:</strong>
+              <p class="token-value">{{ tokenDetails.accessToken }}</p>
+            </div>
+          </div>
+
+          <ion-button
+            expand="block"
+            color="danger"
+            (click)="logout()"
+            [disabled]="loading"
+            class="logout-button"
+          >
+            <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+            <span *ngIf="!loading">Logout</span>
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>
